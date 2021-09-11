@@ -26,4 +26,7 @@ Rails.configuration.to_prepare do
   #   bus.register(PrintInvoice, Invoicing::OnPrint.new)
   #   bus.register(SubmitOrder,  ->(cmd) { Ordering::OnSubmitOrder.new.call(cmd) })
   # end
+  Rails.configuration.command_bus.tap do |bus|
+    bus.register(Playing::StartMatch, -> (cmd) { Playing::OnStartMatch.new.call(cmd) })
+  end
 end

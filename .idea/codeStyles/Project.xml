@@ -1,0 +1,8 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <Ruby>
+      <option name="INDENT_PRIVATE_METHODS" value="true" />
+      <option name="CHAIN_CALLS_ALIGNMENT" value="1" />
+    </Ruby>
+  </code_scheme>
+</component>
