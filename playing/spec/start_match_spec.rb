@@ -19,4 +19,10 @@ RSpec.describe Playing::MatchStarted do
                                              match_id: 42, width: 8, height: 12))
     expect(event_store).to have_published(an_event(Playing::MatchStarted))
   end
+  it 'Raise Error when FootballPitchToSmall' do
+    expect do
+      command_bus.call(Playing::StartMatch.new(aggregate_id: 1, user_id: 10, game_session_id: 1,
+                                               match_id: 42, width: 6, height: 5))
+    end.to raise_error(Playing::Play::FootballPitchTooSmall)
+  end
 end
