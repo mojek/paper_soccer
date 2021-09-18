@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require_relative 'spec_helper'
 
 RSpec.describe Playing::MatchStarted do
@@ -7,8 +6,7 @@ RSpec.describe Playing::MatchStarted do
   end
 
   def start_match_command(**kwargs)
-    params = { aggregate_id: 1, user_id: 10, game_session_id: 1,
-               match_id: 42, width: 8, height: 12 }
+    params = { aggregate_id: 1, user_id: 10, game_session_id: 1, width: 8, height: 12 }
     command_bus.call(Playing::StartMatch.new(params.merge(kwargs)))
   end
 
