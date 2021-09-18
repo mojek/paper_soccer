@@ -10,7 +10,9 @@ describe Playing::LineAdded do
   end
 
   def add_line_command(**kwargs)
-    params = { aggregate_id: 1, user_id: 10, direction: 'N' }
+    play_id = SecureRandom.uuid
+    user_id = SecureRandom.uuid
+    params = { play_id: play_id, user_id: user_id, direction: 'N' }
     command_bus.call(Playing::AddLine.new(params.merge(kwargs)))
   end
 
@@ -22,9 +24,11 @@ describe Playing::LineAdded do
       expect(event_store).to have_published(an_event(Playing::LineAdded))
     end
     it 'change ball positions' # read model
+
     it 'switch player after line added' do
       expect(event_store).to have_published(an_event(Playing::PlayerChanged))
     end
+
   end
 
   it 'raise error when line in the same place exists'

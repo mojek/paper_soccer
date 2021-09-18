@@ -4,10 +4,13 @@ end
 
 module Playing
   class StartMatch < Dry::Struct
-    attribute :aggregate_id, Types::Coercible::Integer
-    attribute :game_session_id, Types::Coercible::Integer
-    attribute :user_id, Types::Coercible::Integer
-    attribute :width, Types::Coercible::Integer
-    attribute :height, Types::Coercible::Integer
+    attribute :play_id, Types::UUID
+    attribute :game_session_id, Types::UUID
+    attribute :user_id, Types::UUID
+    attribute :width, Types::FIELD_SIZE
+    attribute :height, Types::FIELD_SIZE
+
+    alias :aggregate_id :play_id
+
   end
 end
