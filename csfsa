@@ -1,0 +1,165 @@
+= ..ggeemm
+
+(from ruby core)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  IInnssttaalllleerr
+------------------------------------------------------------------------
+  gem()
+
+------------------------------------------------------------------------
+
+Filename of the gem being installed.
+
+
+(from ruby core)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  GGeemm::::PPaacckkaaggee
+------------------------------------------------------------------------
+
+Reference to the gem being packaged.
+
+
+(from ruby core)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  RReeqquueessttSSeett
+------------------------------------------------------------------------
+  gem(name, *reqs)
+
+------------------------------------------------------------------------
+
+Declare that a gem of name name with reqs requirements is needed.
+
+
+(from ruby core)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  GGeemmDDeeppeennddeennccyyAAPPII
+------------------------------------------------------------------------
+  gem(name)
+  gem(name, *requirements)
+  gem(name, *requirements, options)
+
+------------------------------------------------------------------------
+
+Specifies a gem dependency with the given name and requirements.  You
+may also supply options following the requirements
+
+options include:
+
+require::
+  RubyGems does not provide any autorequire features so requires in a
+  gem dependencies file are recorded but ignored.
+
+  In bundler the require: option overrides the file to require during
+  Bundler.require.  By default the name of the dependency is required in
+  Bundler.  A single file or an Array of files may be given.
+
+  To disable requiring any file give false:
+
+    gem 'rake', require: false
+
+
+group::
+  Place the dependencies in the given dependency group.  A single group
+  or an Array of groups may be given.
+
+  See also #group
+
+
+platform::
+  Only install the dependency on the given platform.  A single platform
+  or an Array of platforms may be given.
+
+  See #platform for a list of platforms available.
+
+
+path::
+  Install this dependency from an unpacked gem in the given directory.
+
+    gem 'modified_gem', path: 'vendor/modified_gem'
+
+
+git::
+  Install this dependency from a git repository:
+
+    gem 'private_gem', git: git@my.company.example:private_gem.git'
+
+
+gist::
+  Install this dependency from the gist ID:
+
+    gem 'bang', gist: '1232884'
+
+
+github::
+  Install this dependency from a github git repository:
+
+    gem 'private_gem', github: 'my_company/private_gem'
+
+
+submodules::
+  Set to true to include submodules when fetching the git repository for
+  git:, gist: and github: dependencies.
+
+
+ref::
+  Use the given commit name or SHA for git:, gist: and github:
+  dependencies.
+
+
+branch::
+  Use the given branch for git:, gist: and github: dependencies.
+
+
+tag::
+  Use the given tag for git:, gist: and github: dependencies.
+
+
+
+(from ruby core)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  SSppeeccFFeettcchheerrSSeettuupp
+------------------------------------------------------------------------
+  gem(name, version, dependencies = nil, &block)
+
+------------------------------------------------------------------------
+
+Creates a gem with name, version and deps.  The created gem can be
+downloaded and installed.
+
+The specification will be yielded before gem creation for customization,
+but only the block or the dependencies may be set, not both.
+
+
+(from ruby core)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  KKeerrnneell
+------------------------------------------------------------------------
+  gem(gem_name, *requirements)
+
+------------------------------------------------------------------------
+
+Use Kernel#gem to activate a specific version of gem_name.
+
+requirements is a list of version requirements that the specified gem
+must match, most commonly "= example.version.number".  See
+Gem::Requirement for how to specify a version requirement.
+
+If you will be activating the latest version of a gem, there is no need
+to call Kernel#gem, Kernel#require will do the right thing for you.
+
+Kernel#gem returns true if the gem was activated, otherwise false.  If
+the gem could not be found, didn't match the version requirements, or a
+different version was already activated, an exception will be raised.
+
+Kernel#gem should be called bbeeffoorree any require statements
+(otherwise RubyGems may load a conflicting library version).
+
+Kernel#gem only loads prerelease versions when prerelease requirements
+are given:
+
+  gem 'rake', '>= 1.1.a', '< 2'
+
+In older RubyGems versions, the environment variable GEM_SKIP could be
+used to skip activation of specified gems, for example to test out
+changes that haven't been installed yet.  Now RubyGems defers to -I and
+the RUBYLIB environment variable to skip activation of a gem.
+
+Example:
+
+  GEM_SKIP=libA:libB ruby -I../libA -I../libB ./mycode.rb
+
+

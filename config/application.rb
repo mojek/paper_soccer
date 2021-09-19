@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module PaperSoccer
   class Application < Rails::Application
+    config.paths.add 'playing/lib', eager_load: true
+    config.paths.add 'lib', eager_load: true
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
